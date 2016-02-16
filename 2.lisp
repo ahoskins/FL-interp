@@ -23,7 +23,7 @@
           ; and
           ((eq f 'and)
             (if (fl-interp (car arg) P)
-              (if (fl-interp (cadr arg) P) t)
+              (if (fl-interp (cadr arg) P) t nil)
               nil
             )
           )
