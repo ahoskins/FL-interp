@@ -4,8 +4,8 @@
 
 (defun fl-interp2 (E P vars)
   (cond
+    ((not (null (get-value E vars))) (cadr (get-value E vars))) ; return bindings value if exists
     ((atom E) E)
-    ((not (null (get-value E vars))) (get-value E vars)) ; return bindings value if exists
     (t
       (let* ((f (car E)) (arg (cdr E)) (udf (get-value f P)))
         (cond
@@ -46,16 +46,14 @@
 
           ((not (null udf))
             (fl-interp2
-              (get-body udf)
+              (car (get-body udf))
               P
-              (append (associate (get-args udf) (interp-each arg P vars)) vars)
+              (append (associate (get-args (cdr udf)) (interp-each arg P vars)) vars)
             )
           )
 
           ; not a function or bound to a value, return as data
-          (t
-            (cons f arg)
-          )
+          (t E)
         )
       )
     )
@@ -77,7 +75,7 @@
 (defun get-value (k L)
 	(cond
 		((null L) nil)
-		((eq k (caar L)) (cdar L))
+		((eq k (caar L)) (car L))
 		(t (get-value k (cdr L)))
 	)
 )
