@@ -1,7 +1,3 @@
-; CMPUT 325 Assignment 2
-; Andrew Hoskins, 1358383
-
-
 ; function invoked from command line to start it all
 ; @param E: FL expression to evaluate
 ; @param P: FL program (list of function definitions)
